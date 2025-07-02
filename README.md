@@ -1,2 +1,2 @@
-# Markdown-to-Html
+# Markdown-to-HTML
 A small program helps you to convert Markdown files to Html
