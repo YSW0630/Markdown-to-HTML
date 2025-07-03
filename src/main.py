@@ -12,13 +12,13 @@ from debug import clip_debug
 def basic_check():
     if len(sys.argv) <= 1:
         print("error: Please give me a argument!")
-        os._exit(1)
+        sys.exit(1)
 
     if len(sys.argv) > 2:
         print("error: The program only support one argument now, qaq")
-        os._exit(1)
+        sys.exit(1)
 
-def interact():
+def interact(html):
     print("Copy the converted html file into your clipboard? (default: yes)\n>> ", end='')
 
     user_input = input().lower()
@@ -43,12 +43,16 @@ def main():
     file_path = sys.argv[1]
     file_path = os.path.abspath(file_path)
 
-    with open(file_path, 'r', encoding='utf-8') as f:
-        md_text = f.read()
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            md_text = f.read()
+    except FileNotFoundError:
+        print(f"error: File not found: {file_path}")
+        sys.exit(1)
 
     # Parse
     html = markdown.markdown(md_text)
 
-    interact()
+    interact(html)
 
 main()
